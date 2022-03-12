@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="com.example.newsfeedapplication.Converter" />
+
+        <import type="android.text.Html" />
+
+        <variable
+            name="news"
+            type="com.example.newsfeedapplication.model.News" />
+    </data>
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_low"
+            tools:context=".DetailsViewFragment">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{news.title}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                tools:text="Title" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{Html.fromHtml(news.description)}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                tools:text="Description" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_low"
+                android:text="@{news.author}"
+                tools:text="Author" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Published: ` + Converter.formatInstant(news.creationTime)}"
+                tools:text="Time" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{Converter.getCategoriesString(news.categories)}"
+                tools:text="Categories: " />
+
+            <ImageView
+                android:id="@+id/image_preview"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:adjustViewBounds="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:imageSrc="@{news.imageSrc}"
+                tools:src="@drawable/ic_baseline_photo_32" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_low"
+                android:autoLink="web"
+                android:text="@{Html.fromHtml(news.content)}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/black"
+                tools:text="@string/lorem_ipsum" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoLink="web"
+                android:textIsSelectable="true"
+                android:text="@{Html.fromHtml(`Source: &lt;a href=&quot;` + news.link + `&quot;>` + news.link + `&lt;/a>`)}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                tools:text="Source: " />
+
+        </LinearLayout>
+    </ScrollView>
+</layout>
