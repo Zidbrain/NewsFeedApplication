@@ -22,7 +22,13 @@ class DetailsViewFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-    private val viewModel: DetailsViewModel by activityViewModels { DetailsViewModelFactory(args.newsId) }
+    private val viewModel: DetailsViewModel by activityViewModels {
+        DetailsViewModelFactory(
+            requireActivity().application,
+            args.newsId
+        )
+    }
+
     private val args: DetailsViewFragmentArgs by navArgs()
 
     override fun onCreateView(
