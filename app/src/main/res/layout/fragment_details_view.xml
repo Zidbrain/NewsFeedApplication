@@ -8,8 +8,8 @@
         <import type="android.text.Html" />
 
         <variable
-            name="news"
-            type="com.example.newsfeedapplication.model.News" />
+            name="viewModel"
+            type="com.example.newsfeedapplication.viewmodel.DetailsViewModel" />
     </data>
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -28,14 +28,14 @@
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{news.title}"
+                android:text="@{viewModel.news.title}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 tools:text="Title" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{Html.fromHtml(news.description)}"
+                android:text="@{viewModel.description}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 tools:text="Description" />
 
@@ -43,19 +43,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_low"
-                android:text="@{news.author}"
+                android:text="@{viewModel.news.author}"
                 tools:text="Author" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{`Published: ` + Converter.formatInstant(news.creationTime)}"
+                android:text="@{viewModel.creationTime}"
                 tools:text="Time" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{Converter.getCategoriesString(news.categories)}"
+                android:text="@{viewModel.categories}"
                 tools:text="Categories: " />
 
             <ImageView
@@ -66,7 +66,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                app:imageSrc="@{news.imageSrc}"
+                app:imageSrc="@{viewModel.news.imageSrc}"
                 tools:src="@drawable/ic_baseline_photo_32" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_low"
                 android:autoLink="web"
-                android:text="@{Html.fromHtml(news.content)}"
+                android:text="@{viewModel.content}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/black"
                 tools:text="@string/lorem_ipsum" />
@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:autoLink="web"
                 android:textIsSelectable="true"
-                android:text="@{Html.fromHtml(`Source: &lt;a href=&quot;` + news.link + `&quot;>` + news.link + `&lt;/a>`)}"
+                android:text="@{viewModel.link}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 tools:text="Source: " />
 

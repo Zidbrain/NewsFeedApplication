@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import java.time.Instant
 
 class NewsViewModel : ViewModel() {
-    private val repository = NewsRepository()
+    private val repository = NewsRepository
     private val data: MutableLiveData<List<News>> by lazy {
         MutableLiveData<List<News>>().also {
             loadNews(it)

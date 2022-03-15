@@ -3,12 +3,13 @@ package com.example.newsfeedapplication
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.squareup.picasso.Picasso
-import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.*
+
+private const val INSTANT_FORMAT = "EEE, dd MMM yyyy HH:mm:ss zzz"
 
 class Converter {
     companion object {
@@ -31,7 +32,7 @@ class Converter {
 
         fun getInstant(input: String): Instant {
             val formatter = DateTimeFormatter
-                .ofPattern("EEE, dd MMM yyyy HH:mm:ss zzz")
+                .ofPattern(INSTANT_FORMAT)
                 .withLocale(Locale.US)
             return Instant.from(formatter.parse(input))
         }

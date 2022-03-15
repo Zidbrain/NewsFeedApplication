@@ -9,24 +9,34 @@ import com.example.newsfeedapplication.NewsFeedFragmentDirections
 import com.example.newsfeedapplication.databinding.NewsFeedItemBinding
 import com.example.newsfeedapplication.model.News
 
-class NewsFeedAdapter(var news: List<News>?) : RecyclerView.Adapter<NewsFeedAdapter.NewsFeedViewHolder>() {
-    class NewsFeedViewHolder(val binding: NewsFeedItemBinding) :
-        RecyclerView.ViewHolder(binding.root),
-        View.OnClickListener {
+class NewsFeedAdapter(var news: List<News>?, private val clickListener: NewsFeedItemOnClickListener?) :
+    RecyclerView.Adapter<NewsFeedAdapter.NewsFeedViewHolder>() {
+
+    fun interface NewsFeedItemOnClickListener {
+        fun onClick(id: Int)
+    }
+
+    class NewsFeedViewHolder(
+        val binding: NewsFeedItemBinding,
+        clickListener: NewsFeedItemOnClickListener?,
+    ) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        var id = -1
 
         init {
-            binding.root.setOnClickListener(this)
-        }
-
-        override fun onClick(p0: View?) {
-            binding.root.findNavController().navigate(NewsFeedFragmentDirections.actionToDetailsView(adapterPosition))
+            binding.root.setOnClickListener { clickListener?.onClick(id) }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsFeedViewHolder =
-        NewsFeedViewHolder(NewsFeedItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        NewsFeedViewHolder(
+            NewsFeedItemBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+            clickListener
+        )
 
     override fun onBindViewHolder(holder: NewsFeedViewHolder, position: Int) {
+        holder.id = position
         holder.binding.news = news!![position]
     }
 

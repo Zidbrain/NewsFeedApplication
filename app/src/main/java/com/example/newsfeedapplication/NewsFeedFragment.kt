@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsfeedapplication.adapters.NewsFeedAdapter
 import com.example.newsfeedapplication.databinding.FragmentNewsFeedBinding
@@ -30,7 +31,10 @@ class NewsFeedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter =  NewsFeedAdapter(null)
+        val adapter =  NewsFeedAdapter(null) {
+            findNavController().navigate(NewsFeedFragmentDirections.actionToDetailsView(it))
+        }
+
         binding.feed.adapter = adapter
         binding.feed.layoutManager = LinearLayoutManager(context)
         binding.refresher.isRefreshing = true

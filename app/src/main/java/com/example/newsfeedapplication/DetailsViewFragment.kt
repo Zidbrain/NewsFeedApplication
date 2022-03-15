@@ -12,6 +12,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.newsfeedapplication.databinding.FragmentDetailsViewBinding
 import com.example.newsfeedapplication.model.News
+import com.example.newsfeedapplication.viewmodel.DetailsViewModel
+import com.example.newsfeedapplication.viewmodel.DetailsViewModelFactory
 import com.example.newsfeedapplication.viewmodel.NewsViewModel
 
 class DetailsViewFragment : Fragment() {
@@ -20,9 +22,8 @@ class DetailsViewFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-    private val viewModel: NewsViewModel by activityViewModels()
+    private val viewModel: DetailsViewModel by activityViewModels { DetailsViewModelFactory(args.newsId) }
     private val args: DetailsViewFragmentArgs by navArgs()
-    private lateinit var currentNews: News
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,11 +37,10 @@ class DetailsViewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        currentNews = viewModel.news.value!![args.newsId]
-        binding.news = currentNews
+        binding.viewModel = viewModel
 
         binding.imagePreview.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(currentNews.link))
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(viewModel.news.value!!.link))
             startActivity(intent)
         }
     }

@@ -10,25 +10,35 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class NewsRepository {
+private const val RSS_URL = "https://www.androidpolice.com/feed/"
+
+object NewsRepository {
     private val client = OkHttpClient.Builder()
-        .retryOnConnectionFailure(true)
         .build()
 
+    var news: List<News>? = null
+
+    suspend fun getByIndex(id: Int): News {
+        if (news == null)
+            getNews()
+
+        return news!![id]
+    }
+
     suspend fun getNews(): List<News> {
-        val request = Request.Builder().url("https://www.androidpolice.com/feed/").header("Accept-Encoding", "identity").header("Connection", "close")
-            .header("accept", "*/*").get().build()
+        val request = Request.Builder().url(RSS_URL).get().build()
         val response = client.newCall(request).await()
 
         if (!response.isSuccessful)
             throw Exception()
 
-        return runInterruptible(Dispatchers.IO) {
+        news = runInterruptible(Dispatchers.IO) {
             response.body()!!.byteStream().use {
                 val parser = NewsXmlParser()
                 return@runInterruptible parser.parse(it)
             }
         }
+        return news!!
     }
 
 

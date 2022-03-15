@@ -4,6 +4,17 @@ import com.example.newsfeedapplication.model.News
 import java.io.InputStream
 import javax.xml.parsers.DocumentBuilderFactory
 
+private const val NEWS_NODE_NAME = "item"
+private const val URL_NODE_NAME = "url"
+private const val TITLE_STR = "title"
+private const val LINK_STR = "link"
+private const val AUTHOR_STR = "dc:creator"
+private const val IMAGE_SRC_STR = "enclosure"
+private const val DESCRIPTION_STR = "description"
+private const val CONTENT_STR = "content:encoded"
+private const val CREATION_TIME_STR = "pubDate"
+private const val CATEGORY_STR = "category"
+
 class NewsXmlParser {
     private val factory = DocumentBuilderFactory.newInstance()
 
@@ -17,8 +28,8 @@ class NewsXmlParser {
 
             val ret = mutableListOf<News>()
 
-            val list =  element.getElementsByTagName("item")
-            for (i in 0 until (10)) {
+            val list =  element.getElementsByTagName(NEWS_NODE_NAME)
+            for (i in 0 until (list.length - 1)) {
                 val node = list.item(i)
                 val news = News()
                 val categories = mutableListOf<String>()
@@ -28,15 +39,14 @@ class NewsXmlParser {
                     cnode.normalize()
 
                     when (cnode.nodeName){
-                        "title" -> news.title = cnode.textContent
-                        "link" -> news.link = cnode.textContent
-                        "dc:creator" -> news.author = cnode.textContent
-                        "enclosure" -> news.imageSrc = cnode.attributes.getNamedItem("url").textContent
-                        "description" -> news.description = cnode.textContent
-                        "content:encoded" -> news.content = cnode.textContent
-                        "pubDate" -> news.creationTime = Converter.getInstant(cnode.textContent)
-                        "guid" -> news.link = cnode.textContent
-                        "category" -> categories.add(cnode.textContent)
+                        TITLE_STR -> news.title = cnode.textContent
+                        LINK_STR -> news.link = cnode.textContent
+                        AUTHOR_STR -> news.author = cnode.textContent
+                        IMAGE_SRC_STR -> news.imageSrc = cnode.attributes.getNamedItem(URL_NODE_NAME).textContent
+                        DESCRIPTION_STR -> news.description = cnode.textContent
+                        CONTENT_STR -> news.content = cnode.textContent
+                        CREATION_TIME_STR -> news.creationTime = Converter.getInstant(cnode.textContent)
+                        CATEGORY_STR -> categories.add(cnode.textContent)
                     }
                 }
                 news.categories = categories

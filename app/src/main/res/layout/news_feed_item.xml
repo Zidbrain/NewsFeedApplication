@@ -1,80 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="com.example.newsfeedapplication.Converter" />
+
         <import type="android.text.Html" />
+
         <variable
             name="news"
             type="com.example.newsfeedapplication.model.News" />
     </data>
 
-    <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_low"
         android:clickable="true"
         android:focusable="true"
-        app:cardCornerRadius="10dp"
-        android:foreground="?android:attr/selectableItemBackground">
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="10dp">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/image_preview"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:adjustViewBounds="true"
                 app:imageSrc="@{news.imageSrc}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/ic_baseline_photo_32" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_low"
                 android:text="@{news.title}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_preview"
                 tools:text="@string/lorem_ipsum" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_low"
-                android:layout_marginBottom="@dimen/margin_low"
                 android:layout_marginEnd="@dimen/margin_low"
+                android:layout_marginBottom="@dimen/margin_low"
                 android:text="@{Html.fromHtml(news.description)}"
                 android:textAppearance="?android:attr/textAppearanceSmall"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title"
                 tools:text="@string/lorem_ipsum" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/author"
+                style="@style/TextMedium"
                 android:layout_marginStart="@dimen/margin_low"
+                android:layout_marginTop="@dimen/margin_low"
                 android:layout_marginBottom="@dimen/margin_low"
-                android:layout_marginEnd="@dimen/margin_low">
+                android:text="@{news.author}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/description"
+                tools:text="Author" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/textView"
-                    style="@style/TextMedium"
-                    android:text="@{news.author}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Author" />
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextMedium"
+                android:text="@{Converter.formatInstant(news.creationTime)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/description"
+                tools:text="Time" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    style="@style/TextMedium"
-                    android:text="@{Converter.formatInstant(news.creationTime)}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Time" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>
