@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsfeedapplication.adapters.NewsFeedAdapter
 import com.example.newsfeedapplication.databinding.FragmentNewsFeedBinding
 import com.example.newsfeedapplication.viewmodel.NewsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NewsFeedFragment : Fragment() {
 
     private var _binding: FragmentNewsFeedBinding? = null

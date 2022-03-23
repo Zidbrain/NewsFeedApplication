@@ -1,22 +1,29 @@
 package com.example.newsfeedapplication.model
 
-import android.util.Xml
+import android.content.Context
+import androidx.annotation.StringRes
 import com.example.newsfeedapplication.NewsXmlParser
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.*
 import okhttp3.*
 import java.io.IOException
 import java.lang.Exception
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
-import kotlin.coroutines.suspendCoroutine
 
 private const val RSS_URL = "https://www.androidpolice.com/feed/"
 
-object NewsRepository {
+@Singleton
+class NewsRepository @Inject constructor(@ApplicationContext private val context: Context) {
     private val client = OkHttpClient.Builder()
         .build()
 
     var news: List<News>? = null
+
+    fun getString(@StringRes id: Int, vararg params: Any?): String =
+        context.getString(id, *params)
 
     suspend fun getByIndex(id: Int): News {
         if (news == null)

@@ -8,27 +8,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.newsfeedapplication.databinding.FragmentDetailsViewBinding
-import com.example.newsfeedapplication.model.News
 import com.example.newsfeedapplication.viewmodel.DetailsViewModel
-import com.example.newsfeedapplication.viewmodel.DetailsViewModelFactory
-import com.example.newsfeedapplication.viewmodel.NewsViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class DetailsViewFragment : Fragment() {
 
     private var _binding: FragmentDetailsViewBinding? = null
 
     private val binding get() = _binding!!
 
+    @Inject
+    lateinit var detailsViewModelFactory: DetailsViewModel.DetailsViewModelFactory
     private val viewModel: DetailsViewModel by activityViewModels {
-        DetailsViewModelFactory(
-            requireActivity().application,
+        DetailsViewModel.provideFactory(
+            detailsViewModelFactory,
             args.newsId
         )
     }
-
     private val args: DetailsViewFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -43,6 +43,9 @@ class DetailsViewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.newsId = args.newsId
+
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
         binding.imagePreview.setOnClickListener {

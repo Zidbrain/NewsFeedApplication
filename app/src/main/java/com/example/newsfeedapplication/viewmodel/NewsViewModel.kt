@@ -6,12 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsfeedapplication.model.News
 import com.example.newsfeedapplication.model.NewsRepository
-import kotlinx.coroutines.delay
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.time.Instant
+import javax.inject.Inject
 
-class NewsViewModel : ViewModel() {
-    private val repository = NewsRepository
+@HiltViewModel
+class NewsViewModel @Inject constructor(private val repository: NewsRepository) : ViewModel() {
     private val data: MutableLiveData<List<News>> by lazy {
         MutableLiveData<List<News>>().also {
             loadNews(it)
