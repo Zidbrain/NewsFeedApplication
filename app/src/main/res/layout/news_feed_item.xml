@@ -5,10 +5,6 @@
 
     <data>
 
-        <import type="com.example.newsfeedapplication.Converter" />
-
-        <import type="android.text.Html" />
-
         <variable
             name="news"
             type="com.example.newsfeedapplication.model.News" />

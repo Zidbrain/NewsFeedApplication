@@ -14,12 +14,8 @@ import java.util.*
 private const val INSTANT_FORMAT = "EEE, dd MMM yyyy HH:mm:ss zzz"
 
 object Converter {
-    fun getCategoriesString(categories: List<String>): String = buildString {
-        append("Categories: ", categories[0])
-        for (s in categories.slice(1..categories.lastIndex)) {
-            append(", ", s)
-        }
-    }
+    fun getCategoriesString(categories: List<String>): String =
+        categories.joinToString(prefix = "Categories: ")
 
     fun formatInstant(instant: Instant): String {
         val formatter = DateTimeFormatter
@@ -47,7 +43,17 @@ fun setTextFromHTML(textView: TextView, text: String) {
     textView.text = Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT)
 }
 
+@BindingAdapter("android:text")
+fun setTextCategories(textView: TextView, categories: List<String>) {
+    textView.text = Converter.getCategoriesString(categories)
+}
+
 @BindingAdapter("imageSrc")
 fun setImage(imageView: ImageView, imageSrc: String) {
     Picasso.get().load(imageSrc).fit().centerCrop().into(imageView)
+}
+
+@BindingAdapter("android:text", "time")
+fun setTextFromTime(textView: TextView, text: String, time: Instant) {
+    textView.text = text.format(Converter.formatInstant(time))
 }

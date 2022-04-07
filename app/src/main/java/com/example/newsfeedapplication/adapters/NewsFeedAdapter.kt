@@ -1,11 +1,8 @@
 package com.example.newsfeedapplication.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.newsfeedapplication.NewsFeedFragmentDirections
 import com.example.newsfeedapplication.databinding.NewsFeedItemBinding
 import com.example.newsfeedapplication.model.News
 
