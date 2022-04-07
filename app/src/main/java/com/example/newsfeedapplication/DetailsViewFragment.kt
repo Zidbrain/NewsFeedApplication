@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.newsfeedapplication.databinding.FragmentDetailsViewBinding
 import com.example.newsfeedapplication.viewmodel.DetailsViewModel
@@ -23,7 +23,7 @@ class DetailsViewFragment : Fragment() {
 
     @Inject
     lateinit var detailsViewModelFactory: DetailsViewModel.DetailsViewModelFactory
-    private val viewModel: DetailsViewModel by activityViewModels {
+    private val viewModel: DetailsViewModel by viewModels {
         DetailsViewModel.provideFactory(
             detailsViewModelFactory,
             args.newsId
@@ -46,8 +46,6 @@ class DetailsViewFragment : Fragment() {
         viewModel.news.observe(viewLifecycleOwner) {
             binding.news = it
         }
-        viewModel.newsId = args.newsId
-
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.imagePreview.setOnClickListener {

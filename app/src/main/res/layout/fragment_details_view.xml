@@ -3,8 +3,6 @@
 
     <data>
 
-        <import type="com.example.newsfeedapplication.Converter" />
-
         <variable
             name="news"
             type="com.example.newsfeedapplication.model.News" />
@@ -47,7 +45,8 @@
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:textHTML="@{@string/published(Converter.formatInstant(news.creationTime))}"
+                android:text="@{@string/published}"
+                app:time="@{news.creationTime}"
                 tools:text="Time" />
 
             <com.google.android.material.textview.MaterialTextView

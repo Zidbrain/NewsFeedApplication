@@ -17,7 +17,6 @@ object Converter {
     fun getCategoriesString(categories: List<String>): String =
         categories.joinToString(prefix = "Categories: ")
 
-    @JvmStatic
     fun formatInstant(instant: Instant): String {
         val formatter = DateTimeFormatter
             .ofLocalizedDateTime(FormatStyle.SHORT)
@@ -52,4 +51,9 @@ fun setTextCategories(textView: TextView, categories: List<String>) {
 @BindingAdapter("imageSrc")
 fun setImage(imageView: ImageView, imageSrc: String) {
     Picasso.get().load(imageSrc).fit().centerCrop().into(imageView)
+}
+
+@BindingAdapter("android:text", "time")
+fun setTextFromTime(textView: TextView, text: String, time: Instant) {
+    textView.text = text.format(Converter.formatInstant(time))
 }

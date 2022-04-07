@@ -10,15 +10,13 @@ import kotlinx.coroutines.launch
 
 class DetailsViewModel @AssistedInject constructor(
     private val repository: NewsRepository,
-    @Assisted newsId: Int
+    @Assisted private val newsId: Int
 ) : ViewModel() {
-    private var data: MutableLiveData<News> = MutableLiveData()
-
-    var newsId: Int = newsId
-        set(value) {
-            field = value
-            loadData(data)
+    private val data: MutableLiveData<News> by lazy {
+        MutableLiveData<News>().also {
+            loadData(it)
         }
+    }
 
     @AssistedFactory
     fun interface DetailsViewModelFactory {
