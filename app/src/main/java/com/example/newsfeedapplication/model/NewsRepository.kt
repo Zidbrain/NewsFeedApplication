@@ -15,9 +15,7 @@ import kotlin.coroutines.resumeWithException
 private const val RSS_URL = "https://www.androidpolice.com/feed/"
 
 @Singleton
-class NewsRepository @Inject constructor() {
-    private val client = OkHttpClient.Builder()
-        .build()
+class NewsRepository @Inject constructor(private val client: OkHttpClient) {
 
     var news: List<News>? = null
 
