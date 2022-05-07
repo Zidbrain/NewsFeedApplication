@@ -45,7 +45,13 @@ fun setTextFromHTML(textView: TextView, text: String) {
 
 @BindingAdapter("android:text")
 fun setTextCategories(textView: TextView, categories: List<String>) {
-    textView.text = Converter.getCategoriesString(categories, textView.resources.getString(R.string.categories_prefix))
+    textView.text = Html.fromHtml(
+        Converter.getCategoriesString(
+            categories,
+            textView.resources.getString(R.string.categories_prefix)
+        ),
+        Html.FROM_HTML_MODE_COMPACT
+    )
 }
 
 @BindingAdapter("imageSrc")
