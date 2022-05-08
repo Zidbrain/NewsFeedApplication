@@ -12,10 +12,12 @@ import javax.inject.Singleton
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
-private const val RSS_URL = "https://www.androidpolice.com/feed/"
-
 @Singleton
-class NewsRepository @Inject constructor(private val client: OkHttpClient) {
+class NewsRepository @Inject constructor(
+    private val client: OkHttpClient,
+    private val request: Request,
+    private val xmlParser: NewsXmlParser
+) {
 
     var news: List<News>? = null
 
@@ -27,7 +29,6 @@ class NewsRepository @Inject constructor(private val client: OkHttpClient) {
     }
 
     suspend fun getNews(): List<News> {
-        val request = Request.Builder().url(RSS_URL).get().build()
         val response = client.newCall(request).await()
 
         if (!response.isSuccessful)
@@ -35,8 +36,7 @@ class NewsRepository @Inject constructor(private val client: OkHttpClient) {
 
         news = runInterruptible(Dispatchers.IO) {
             response.body()!!.byteStream().use {
-                val parser = NewsXmlParser()
-                return@runInterruptible parser.parse(it)
+                return@runInterruptible xmlParser.parse(it)
             }
         }
         return news!!
