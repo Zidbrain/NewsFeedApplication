@@ -24,7 +24,7 @@ object NewsModule {
         Request.Builder().url(RSS_URL).get().build()
 
     @Provides
-    fun provideDocumentBuilderFactory(): DocumentBuilder =
+    fun provideDocumentBuilder(): DocumentBuilder =
         DocumentBuilderFactory.newInstance().newDocumentBuilder()
 
     @Provides
