@@ -35,7 +35,7 @@ class NewsRepository @Inject constructor(
             throw Exception()
 
         news = runInterruptible(Dispatchers.IO) {
-            response.body()!!.byteStream().use {
+            response.body.byteStream().use {
                 return@runInterruptible xmlParser.parse(it)
             }
         }
@@ -46,7 +46,7 @@ class NewsRepository @Inject constructor(
         suspendCancellableCoroutine { continuation ->
             val callback = object : Callback, CompletionHandler {
                 override fun onFailure(call: Call, e: IOException) {
-                    if (!call.isCanceled)
+                    if (!call.isCanceled())
                         continuation.resumeWithException(e)
                 }
 
