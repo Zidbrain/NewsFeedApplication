@@ -29,12 +29,12 @@ class DocumentNewsParser @Inject constructor(private val builder: DocumentBuilde
             val ret = mutableListOf<News>()
 
             val list = element.getElementsByTagName(NEWS_NODE_NAME)
-            for (i in 0 until (list.length - 1)) {
+            for (i in 0 until list.length) {
                 val node = list.item(i)
                 val news = News()
                 val categories = mutableListOf<String>()
 
-                for (j in 0 until (node.childNodes.length - 1)) {
+                for (j in 0 until node.childNodes.length) {
                     val cnode = node.childNodes.item(j)
                     cnode.normalize()
 
