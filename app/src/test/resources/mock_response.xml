@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+    xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+    version="2.0">
+
+    <channel>
+        <title>Android Police - Feed</title>
+        <atom:link href="https://www.androidpolice.com/feed/" rel="self"
+            type="application/rss+xml" />
+        <link>https://www.androidpolice.com</link>
+
+        <description>Looking after everything Android</description>
+        <lastBuildDate>Sat, 28 May 2022 12:30:14 GMT</lastBuildDate>
+        <language>en-US</language>
+        <HasSyndicationRights>true</HasSyndicationRights>
+        <sy:updatePeriod>hourly</sy:updatePeriod>
+        <sy:updateFrequency>60</sy:updateFrequency>
+
+        <item>
+            <title>title1</title>
+            <link>https://www.androidpolice.com/fuji-instax-mini-evo-hands-on/</link>
+            <dc:creator><![CDATA[Taylor Kerns1]]></dc:creator>
+
+            <enclosure
+                type="image/jpeg"
+                url="https://static1.anpoimages.com/wordpress/wp-content/uploads/2022/05/fuji-instax-mini-evo-with-photos.jpg" />
+
+            <category><![CDATA[Accessories]]></category>
+            <category><![CDATA[Reviews]]></category>
+            <description><![CDATA[description1]]></description>
+            <content:encoded><![CDATA[content1]]></content:encoded>
+            <pubDate>Sat, 28 May 2022 12:30:14 GMT</pubDate>
+            <guid isPermaLink="true">https://www.androidpolice.com/fuji-instax-mini-evo-hands-on/</guid>
+
+        </item>
+        <item>
+            <title>title2</title>
+            <link>https://www.androidpolice.com/fuji-instax-mini-evo-hands-on2/</link>
+            <dc:creator><![CDATA[Taylor Kerns2]]></dc:creator>
+
+            <enclosure
+                type="image/jpeg"
+                url="https://static1.anpoimages.com/wordpress/wp-content/uploads/2022/05/fuji-instax-mini-evo-with-photos1.jpg" />
+
+            <category><![CDATA[Accessories2]]></category>
+            <category><![CDATA[Reviews2]]></category>
+            <description><![CDATA[description2]]></description>
+            <content:encoded><![CDATA[content2]]></content:encoded>
+            <pubDate>Sat, 28 May 2022 12:40:14 GMT</pubDate>
+            <guid isPermaLink="true">https://www.androidpolice.com/fuji-instax-mini-evo-hands-on2/</guid>
+
+        </item>
+    </channel>
+</rss>
